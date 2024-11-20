@@ -36,7 +36,7 @@ async fn main() {
                     // Add item
                     let items = vec![
                         MenuItem { item_name: food[food_idx].clone(), table_number: 1, cooking_time: 10 },
-                        MenuItem { item_name: food[food_idx].clone(), table_number: 2, cooking_time: 12 },
+                        MenuItem { item_name: food[(food_idx + 1) % 6].clone(), table_number: 2, cooking_time: 12 },
                     ];
                     let added_items = add_item(&task_client, items).await.unwrap();
                     println!("Added items: {:?}", added_items);
@@ -58,7 +58,7 @@ async fn main() {
                 }
                 4 => {
                     // Remove item
-                    let remaining_items = remove_item(&task_client, 2, food[food_idx].clone()).await.unwrap();
+                    let remaining_items = remove_item(&task_client, 2, food[(food_idx + 1) % 6].clone()).await.unwrap();
                     println!("Remaining items for table 1: {:?}", remaining_items);
                 }
                 _ => unreachable!(),
