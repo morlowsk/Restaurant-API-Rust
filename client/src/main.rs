@@ -1,29 +1,42 @@
 mod client;
 
+use crate::client::{add_item, query_items, remove_item};
+use models::MenuItem;
 use rand::prelude::ThreadRng;
-use crate::client::{add_item, remove_item, query_items, query_item};
-use reqwest::Client;
-use models::{MenuItem};
-use tokio::task;
 use rand::Rng;
+use reqwest::Client;
+use tokio::task;
 
 #[tokio::main]
 async fn main() {
     let client = Client::new();
 
+    let food: Vec<String> = vec![
+        String::from("Pizza"),
+        String::from("Burger"),
+        String::from("German Sausage"),
+        String::from("Kung Pao Chicken"),
+        String::from("Salad"),
+        String::from("Ramen"),
+        String::from("Taco")
+    ];
+    let food_len = food.len();
+
     // Simulate 20 random requests
     let mut tasks = Vec::new();
     for _ in 0..20 {
         let task_client = client.clone();
+        let food = food.clone();
         let mut rng: ThreadRng = rand::thread_rng();
         let num = rng.gen_range(0..5);
+        let food_idx = rng.gen_range(0..food_len);
         let task = task::spawn(async move {
             match num {
                 0 => {
                     // Add item
                     let items = vec![
-                        MenuItem { item_name: format!("Pizza{}", num), table_number: 1, cooking_time: 10 },
-                        MenuItem { item_name: format!("Burger{}", num), table_number: 2, cooking_time: 12 },
+                        MenuItem { item_name: food[food_idx].clone(), table_number: 1, cooking_time: 10 },
+                        MenuItem { item_name: food[food_idx].clone(), table_number: 2, cooking_time: 12 },
                     ];
                     let added_items = add_item(&task_client, items).await.unwrap();
                     println!("Added items: {:?}", added_items);
@@ -35,7 +48,7 @@ async fn main() {
                 }
                 2 => {
                     // Remove item
-                    let remaining_items = remove_item(&task_client, 1, format!("Pizza{}", num)).await.unwrap();
+                    let remaining_items = remove_item(&task_client, 1, food[food_idx].clone()).await.unwrap();
                     println!("Remaining items for table 1: {:?}", remaining_items);
                 }
                 3 => {
@@ -45,7 +58,7 @@ async fn main() {
                 }
                 4 => {
                     // Remove item
-                    let remaining_items = remove_item(&task_client, 2, format!("Pizza{}", num)).await.unwrap();
+                    let remaining_items = remove_item(&task_client, 2, food[food_idx].clone()).await.unwrap();
                     println!("Remaining items for table 1: {:?}", remaining_items);
                 }
                 _ => unreachable!(),
