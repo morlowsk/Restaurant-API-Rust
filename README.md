@@ -101,6 +101,6 @@ This is just for testing and getting something working fast.
 
 If you want to make it minutes elapsed, you can convert the `cooking_time` field to be compatible with `created_at` which is in UNIX time and then add that to it in the backgound task filter.
 
-I wrote an extra main method in the client library to simulate sending multiple requests (I have 20, but the project specified 10) randomly chosen.
+I wrote an extra main method in the client library to simulate sending multiple requests using the client library (I have 20, but the project specified 10) randomly chosen.
 Given that there's input returned after every call and the server doesn't crash it should show that this is sufficient.
 However in the real world you would write performance tests to automate this.
