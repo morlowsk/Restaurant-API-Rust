@@ -104,3 +104,29 @@ If you want to make it minutes elapsed, you can convert the `cooking_time` field
 I wrote an extra main method in the client library to simulate sending multiple requests using the client library (I have 20, but the project specified 10) randomly chosen.
 Given that there's input returned after every call and the server doesn't crash it should show that this is sufficient.
 However in the real world you would write performance tests to automate this.
+
+Here's one sample run:
+
+```
+Queried items for table 1: []
+Remaining items for table 1: []
+Queried items for table 1: [MenuItem { item_name: "Ramen", table_number: 1, cooking_time: 13, created_at: 1732169559 }]
+Added items: [MenuItem { item_name: "Ramen", table_number: 1, cooking_time: 13, created_at: 1732169559 }, MenuItem { item_name: "Pizza", table_number: 2, cooking_time: 11, created_at: 1732169559 }]
+Remaining items for table 1: [MenuItem { item_name: "Ramen", table_number: 1, cooking_time: 13, created_at: 1732169559 }]
+Remaining items for table 1: [MenuItem { item_name: "Ramen", table_number: 1, cooking_time: 13, created_at: 1732169559 }]
+Added items: [MenuItem { item_name: "Kung Pao Chicken", table_number: 1, cooking_time: 10, created_at: 1732169559 }, MenuItem { item_name: "Salad", table_number: 2, cooking_time: 5, created_at: 1732169559 }]
+Queried items for table 1: [MenuItem { item_name: "Pizza", table_number: 2, cooking_time: 11, created_at: 1732169559 }, MenuItem { item_name: "Salad", table_number: 2, cooking_time: 5, created_at: 1732169559 }]
+Queried items for table 1: [MenuItem { item_name: "Ramen", table_number: 1, cooking_time: 13, created_at: 1732169559 }, MenuItem { item_name: "Kung Pao Chicken", table_number: 1, cooking_time: 10, created_at: 1732169559 }]
+Added items: [MenuItem { item_name: "German Sausage", table_number: 1, cooking_time: 15, created_at: 1732169559 }, MenuItem { item_name: "Kung Pao Chicken", table_number: 2, cooking_time: 12, created_at: 1732169559 }]
+Remaining items for table 1: [MenuItem { item_name: "Ramen", table_number: 1, cooking_time: 13, created_at: 1732169559 }, MenuItem { item_name: "Kung Pao Chicken", table_number: 1, cooking_time: 10, created_at: 1732169559 }]
+Queried items for table 1: [MenuItem { item_name: "Ramen", table_number: 1, cooking_time: 13, created_at: 1732169559 }, MenuItem { item_name: "Kung Pao Chicken", table_number: 1, cooking_time: 10, created_at: 1732169559 }, MenuItem { item_name: "German Sausage", table_number: 1, cooking_time: 15, created_at: 1732169559 }, MenuItem { item_name: "Taco", table_number: 1, cooking_time: 15, created_at: 1732169559 }]
+Added items: [MenuItem { item_name: "Taco", table_number: 1, cooking_time: 15, created_at: 1732169559 }, MenuItem { item_name: "Burger", table_number: 2, cooking_time: 5, created_at: 1732169559 }]
+Added items: [MenuItem { item_name: "Burger", table_number: 1, cooking_time: 6, created_at: 1732169559 }, MenuItem { item_name: "German Sausage", table_number: 2, cooking_time: 10, created_at: 1732169559 }]
+Added items: [MenuItem { item_name: "Salad", table_number: 1, cooking_time: 9, created_at: 1732169559 }, MenuItem { item_name: "Ramen", table_number: 2, cooking_time: 10, created_at: 1732169559 }]
+Remaining items for table 1: [MenuItem { item_name: "Kung Pao Chicken", table_number: 1, cooking_time: 10, created_at: 1732169559 }, MenuItem { item_name: "Taco", table_number: 1, cooking_time: 15, created_at: 1732169559 }, MenuItem { item_name: "Burger", table_number: 1, cooking_time: 6, created_at: 1732169559 }, MenuItem { item_name: "Salad", table_number: 1, cooking_time: 9, created_at: 1732169559 }]
+Remaining items for table 1: [MenuItem { item_name: "Ramen", table_number: 1, cooking_time: 13, created_at: 1732169559 }, MenuItem { item_name: "Kung Pao Chicken", table_number: 1, cooking_time: 10, created_at: 1732169559 }, MenuItem { item_name: "Taco", table_number: 1, cooking_time: 15, created_at: 1732169559 }, MenuItem { item_name: "Burger", table_number: 1, cooking_time: 6, created_at: 1732169559 }, MenuItem { item_name: "Salad", table_number: 1, cooking_time: 9, created_at: 1732169559 }]
+Remaining items for table 1: [MenuItem { item_name: "Kung Pao Chicken", table_number: 1, cooking_time: 10, created_at: 1732169559 }, MenuItem { item_name: "Taco", table_number: 1, cooking_time: 15, created_at: 1732169559 }, MenuItem { item_name: "Burger", table_number: 1, cooking_time: 6, created_at: 1732169559 }, MenuItem { item_name: "Burger", table_number: 1, cooking_time: 6, created_at: 1732169559 }]
+Added items: [MenuItem { item_name: "Burger", table_number: 1, cooking_time: 6, created_at: 1732169559 }, MenuItem { item_name: "German Sausage", table_number: 2, cooking_time: 12, created_at: 1732169559 }]
+Queried items for table 1: [MenuItem { item_name: "Kung Pao Chicken", table_number: 1, cooking_time: 10, created_at: 1732169559 }, MenuItem { item_name: "Taco", table_number: 1, cooking_time: 15, created_at: 1732169559 }, MenuItem { item_name: "Burger", table_number: 1, cooking_time: 6, created_at: 1732169559 }, MenuItem { item_name: "Burger", table_number: 1, cooking_time: 6, created_at: 1732169559 }]
+Queried items for table 1 after all operations: [MenuItem { item_name: "Kung Pao Chicken", table_number: 1, cooking_time: 10, created_at: 1732169559 }, MenuItem { item_name: "Taco", table_number: 1, cooking_time: 15, created_at: 1732169559 }, MenuItem { item_name: "Burger", table_number: 1, cooking_time: 6, created_at: 1732169559 }, MenuItem { item_name: "Burger", table_number: 1, cooking_time: 6, created_at: 1732169559 }]
+```
