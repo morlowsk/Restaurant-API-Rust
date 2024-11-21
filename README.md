@@ -1,6 +1,6 @@
 # Restaurant API
 
-This project implements a RESTful API for a restaurant that allows adding, removing, and querying menu items. The API is built using Rust and the `poem` framework. The client code is also written in Rust and uses the `reqwest` crate to make HTTP requests to the server.
+This project implements a RESTful API in RUST for a restaurant that allows adding, removing, and querying menu items.
 
 ## Project Structure
 
@@ -78,7 +78,12 @@ cargo test
 
 ### NOTES + ASSUMPTIONS
 
-I checked that the background job works by adding some items, waiting a few seconds (I have it configured as 5), to see they were removed.
+The main data structure is very simple, it's just a map of table numbers to a list of orders. The backend API is simple too,
+there are only: add, remove, and two query methods. One query is for querying the table for all items and one API is for querying for a specific food item.
+
+Also, there's background job to check if enough time elapsed between `created_at` + `cooking_time` to remove an order from a table.
+
+I checked that the background job works by adding some items, waiting a few seconds (I have it configured to run every 5), to see they were removed.
 I decided to simplify the requirements by making the background job for getting rid of finished orders to be in seconds from now.
 This is just for testing and getting something working fast.
 
@@ -94,4 +99,8 @@ This is just for testing and getting something working fast.
 []%
 ```
 
-If you want to make it minutes elapsed, I believe you can convert the `cooking_time` field to be compatible with `created_at` which is in UNIX time and then add that to it in the backgound task filter.
+If you want to make it minutes elapsed, you can convert the `cooking_time` field to be compatible with `created_at` which is in UNIX time and then add that to it in the backgound task filter.
+
+I wrote an extra main method in the client library to simulate sending multiple requests (I have 20, but the project specified 10) randomly chosen.
+Given that there's input returned after every call and the server doesn't crash it should show that this is sufficient.
+However in the real world you would write performance tests to automate this.
