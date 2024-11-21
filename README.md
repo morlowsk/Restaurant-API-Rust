@@ -23,10 +23,10 @@ restaurant_api/
 │ ├── client.rs
 ```
 
-- `src/main.rs`: Contains the main server code and the REST API logic.
+- `src/main.rs`: Contains the main server code that is the REST API logic and an internal loop to check when orders are finished.
 - `src/tests.rs`: Contains unit tests for the API logic.
 - `models/`: A library crate that contains shared data structures.
-- `src/lib.rs`: Contains shared data structures used by both the server and client.
+- `models/src/lib.rs`: Library that is shared data structures used by both the server and client.
 - `client/`: A binary crate that contains the client code for making HTTP requests to the server.
 - `src/client.rs`: Contains the client code for making HTTP requests to the server.
 - `src/main.rs`: Code that utilizes the client to make some calls to the server, simulating multiple calls at once

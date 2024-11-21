@@ -35,8 +35,8 @@ async fn main() {
                 0 => {
                     // Add item
                     let items = vec![
-                        MenuItem { item_name: food[food_idx].clone(), table_number: 1, cooking_time: 10 },
-                        MenuItem { item_name: food[(food_idx + 1) % 6].clone(), table_number: 2, cooking_time: 12 },
+                        MenuItem::new_with_default_time(food[food_idx].clone(), 1),
+                        MenuItem::new_with_default_time(food[(food_idx + 1) % 6].clone(), 2),
                     ];
                     let added_items = add_item(&task_client, items).await.unwrap();
                     println!("Added items: {:?}", added_items);

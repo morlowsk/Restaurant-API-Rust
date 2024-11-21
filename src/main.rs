@@ -11,6 +11,8 @@ use poem::{
     Server
 };
 use std::sync::{Arc, Mutex};
+use std::time::{Duration, SystemTime, UNIX_EPOCH};
+use std::{thread};
 use models::{AppState, MenuItem, Orders};
 
 #[handler]
@@ -50,6 +52,21 @@ async fn query_item(Path((table_number, item_name)): Path<(u32, String)>,  state
     Json(None)
 }
 
+async fn cleanup_expired_items(state: Arc<Mutex<Orders>>) {
+    loop {
+        thread::sleep(Duration::from_secs(5));
+        let mut state = state.lock().unwrap();
+        let now = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .expect("Time went backwards")
+            .as_secs();
+        for table_orders in state.values_mut() {
+            table_orders.retain(|item| now < item.created_at() + item.cooking_time);
+        }
+    }
+}
+
+
 #[tokio::main]
 async fn main() {
     let state = AppState(Arc::new(Mutex::new(Orders::new())));
@@ -59,7 +76,9 @@ async fn main() {
         .at("/remove/:table_number/:item_name", poem::delete(remove_item))
         .at("/query/:table_number", get(query_items))
         .at("/query/:table_number/:item_name", get(query_item))
-        .data(state);
+        .data(state.clone());
+
+    tokio::spawn(cleanup_expired_items(state.0.clone()));
 
     Server::new(TcpListener::bind("127.0.0.1:3000"))
         .run(app)

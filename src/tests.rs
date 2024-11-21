@@ -17,16 +17,8 @@ mod tests {
 
         let cli = TestClient::new(app);
         let menu_items = vec![
-            MenuItem {
-                table_number: 1,
-                item_name: "Burger".to_string(),
-                cooking_time: 10,
-            },
-            MenuItem {
-                table_number: 1,
-                item_name: "Fries".to_string(),
-                cooking_time: 12,
-            },
+            MenuItem::new( "Burger".to_string(), 1, 10),
+            MenuItem::new("Fries".to_string(), 1, 12)
         ];
 
         let resp = cli.post("/add").body_json(&menu_items).send().await;
@@ -43,16 +35,8 @@ mod tests {
             orders.insert(
                 1,
                 vec![
-                    MenuItem {
-                        table_number: 1,
-                        item_name: "Burger".to_string(),
-                        cooking_time: 10,
-                    },
-                    MenuItem {
-                        table_number: 1,
-                        item_name: "Fries".to_string(),
-                        cooking_time: 10,
-                    },
+                    MenuItem::new( "Burger".to_string(), 1, 10),
+                    MenuItem::new("Fries".to_string(), 1, 12)
                 ],
             );
         }
@@ -66,11 +50,7 @@ mod tests {
         let remaining_items: Vec<MenuItem> = resp.json().await.value().deserialize();
         assert_eq!(
             remaining_items,
-            vec![MenuItem {
-                table_number: 1,
-                item_name: "Fries".to_string(),
-                cooking_time: 10,
-            }]
+            vec![MenuItem::new("Fries".to_string(), 1, 12)]
         );
     }
 
@@ -82,16 +62,8 @@ mod tests {
             orders.insert(
                 1,
                 vec![
-                    MenuItem {
-                        table_number: 1,
-                        item_name: "Burger".to_string(),
-                        cooking_time: 10,
-                    },
-                    MenuItem {
-                        table_number: 1,
-                        item_name: "Fries".to_string(),
-                        cooking_time: 10,
-                    },
+                    MenuItem::new( "Burger".to_string(), 1, 10),
+                    MenuItem::new("Fries".to_string(), 1, 12)
                 ],
             );
         }
@@ -106,16 +78,8 @@ mod tests {
         assert_eq!(
             items,
             vec![
-                MenuItem {
-                    table_number: 1,
-                    item_name: "Burger".to_string(),
-                    cooking_time: 10,
-                },
-                MenuItem {
-                    table_number: 1,
-                    item_name: "Fries".to_string(),
-                    cooking_time: 10,
-                },
+                MenuItem::new( "Burger".to_string(), 1, 10),
+                MenuItem::new("Fries".to_string(), 1, 12)
             ]
         );
     }
@@ -127,11 +91,7 @@ mod tests {
             let mut orders = state.0.lock().unwrap();
             orders.insert(
                 1,
-                vec![MenuItem {
-                    table_number: 1,
-                    item_name: "Burger".to_string(),
-                    cooking_time: 10,
-                }],
+                vec![MenuItem::new( "Burger".to_string(), 1, 10)],
             );
         }
         let app = Route::new()
@@ -144,11 +104,7 @@ mod tests {
         let item: Option<MenuItem> = resp.json().await.value().deserialize();
         assert_eq!(
             item,
-            Some(MenuItem {
-                table_number: 1,
-                item_name: "Burger".to_string(),
-                cooking_time: 10,
-            })
+            Some(MenuItem::new( "Burger".to_string(), 1, 10))
         );
     }
 
