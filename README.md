@@ -76,9 +76,11 @@ To run the unit tests, use the following command in src/ directory:
 cargo test
 ```
 
-### NOTES
+### NOTES + ASSUMPTIONS
 
-I checked that the background job works by adding some items, waiting a few seconds (I have it configured as 5), to see they were removed:
+I checked that the background job works by adding some items, waiting a few seconds (I have it configured as 5), to see they were removed.
+I decided to simplify the requirements by making the background job for getting rid of finished orders to be in seconds from now.
+This is just for testing and getting something working fast.
 
 ```
 ➜  Restaurant API git:(master) ✗ curl -X POST http://localhost:3000/add -H "Content-Type: application/json" -d '[
@@ -91,3 +93,5 @@ I checked that the background job works by adding some items, waiting a few seco
 ➜  Restaurant API git:(master) ✗ curl -X GET http://localhost:3000/query/1
 []%
 ```
+
+If you want to make it minutes elapsed, I believe you can convert the `cooking_time` field to be compatible with `created_at` which is in UNIX time and then add that to it in the backgound task filter.

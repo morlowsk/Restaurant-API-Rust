@@ -66,7 +66,12 @@ impl<'de> Deserialize<'de> for MenuItem {
         struct TempMenuItem {
             item_name: String,
             table_number: u32,
+            #[serde(default = "default_cooking_time")]
             cooking_time: u64,
+        }
+
+        fn default_cooking_time() -> u64 {
+            rand::thread_rng().gen_range(5..=15)
         }
 
         let temp = TempMenuItem::deserialize(deserializer)?;
