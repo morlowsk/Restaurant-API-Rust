@@ -75,3 +75,19 @@ To run the unit tests, use the following command in src/ directory:
 ```bash
 cargo test
 ```
+
+### NOTES
+
+I checked that the background job works by adding some items, waiting a few seconds (I have it configured as 5), to see they were removed:
+
+```
+➜  Restaurant API git:(master) ✗ curl -X POST http://localhost:3000/add -H "Content-Type: application/json" -d '[
+{"item_name": "Pizza", "table_number": 1, "cooking_time": 10},
+{"item_name": "Burger", "table_number": 2, "cooking_time": 12}
+]'
+[{"item_name":"Pizza","table_number":1,"cooking_time":10,"created_at":1732167098},{"item_name":"Burger","table_number":2,"cooking_time":12,"created_at":1732167098}]%
+➜  Restaurant API git:(master) ✗ curl -X GET http://localhost:3000/query/2
+[]%
+➜  Restaurant API git:(master) ✗ curl -X GET http://localhost:3000/query/1
+[]%
+```
