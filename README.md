@@ -16,10 +16,10 @@ restaurant_api/
 │ ├── Cargo.toml
 │ └── src/
 │   ├── lib.rs
-|   ├── integration_tests.rs
 └── client/  
 ├ ├── Cargo.toml
 └── src/
+│ ├── integration_tests.rs
 │ ├── main.rs
 │ ├── client.rs
 ```
