@@ -16,6 +16,7 @@ restaurant_api/
 │ ├── Cargo.toml
 │ └── src/
 │   ├── lib.rs
+|   ├── integration_tests.rs
 └── client/  
 ├ ├── Cargo.toml
 └── src/
@@ -71,6 +72,14 @@ The server exposes the following API endpoints:
 ## Running the Unit Tests
 
 To run the unit tests, use the following command in src/ directory:
+
+```bash
+cargo test
+```
+
+## Running the Integration Tests
+
+To run the integration tests, use the following command in client/ directory after running the restaurant API:
 
 ```bash
 cargo test

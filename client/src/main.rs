@@ -1,4 +1,5 @@
 mod client;
+mod integration_tests;
 
 use crate::client::{add_item, query_items, remove_item};
 use models::MenuItem;
